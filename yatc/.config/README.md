@@ -1,4 +1,4 @@
-Example Configuration.
+Example Values
 ==
 
 ```json5

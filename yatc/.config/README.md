@@ -1,5 +1,7 @@
-Example Configuration.
+Example Values
 ==
+
+Below are dummy consumer key and secret credentials.
 
 ```json5
 {

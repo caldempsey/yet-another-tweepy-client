@@ -1,9 +1,12 @@
 Example configuration
+
 ```json5
 {
   "allow_retweets": false,
-  "filter_arguments": "",
-  "locations": [-9.843750,37.020098,27.861328,59.040555],
-  "track": ["%22weather%22%20%3A%29"]
+  "locations": [],
+  "track": ["\"weather\" :("],
+  "null_delimit": true
 }
 ```
+
+Null delimit will delimit the stream output with null-bytes (in case having a delimiter for the JSON responses is useful to you).

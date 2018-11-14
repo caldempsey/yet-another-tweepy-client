@@ -40,23 +40,24 @@ class StreamingClient:
         # Retrieve authentication variables.
         auth = OAuthHandler(secrets["consumer_key"], secrets["consumer_secret"])
         auth.set_access_token(secrets["access_token"], secrets["access_secret"])
+        # Retrieve config variables.
+        config = settings.get_dict_config()
         # Default consumer is a BaseConsumer which requires no special arguments.
-        consumer = BaseConsumer()
+        consumer = BaseConsumer(**config)
         # Different kinds of consumers defined here. If a type is invalid pass back a ValueError.
         try:
             if type == "base" or type == "":
                 pass
             elif type == "stdout":
-                consumer = STDConsumer()
+                consumer = STDConsumer(**config)
             else:
                 raise ValueError()
         except ValueError:
             log.exception("Valid consumer type must be specified for a client connection.")
             raise
-        # At this stage we have a consumer stored as a reference to the object. Now we need to tell the consumer what
-        # it's supposed to be doing. We do this by getting relevant configuration from the JSON (settings.json) for a
-        # particular "mode".
-        config = settings.get_dict_config()
+        # At this stage we have a consumer stored within the StreamingClient object. Now we need to tell the consumer
+        #  what it's supposed to be doing. We do this by getting relevant configuration from the JSON (settings.json)
+        #  for a particular "mode".
         # TODO Ways this could be improved is passing kwargs to allow user defined settings.
         if mode == "filter":
             self.consumer = Stream(auth, consumer).filter(track=config["track"])

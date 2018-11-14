@@ -5,7 +5,7 @@ import os
 log = logging.getLogger("Streams.settings: ")
 path = os.path.dirname(__file__)
 secret_keys = ["CONSUMER_KEY", "CONSUMER_SECRET", "ACCESS_TOKEN", "ACCESS_SECRET"]
-config_keys = ["locations", "track", "allow_retweets"]
+config_keys = ["locations", "track", "allow_retweets", "null_delimit"]
 # TODO Parameterized path so you can specify the configuration in the UI.
 default_secrets_path = os.path.join(os.path.dirname(__file__), ".config/keys.json")
 default_config_path = config_keys_dir = os.path.join(os.path.dirname(__file__), "config/settings.json")
@@ -92,7 +92,7 @@ def _get_config_json():
         try:
             # Build a dict of API keys.
             settings = {"allow_retweets": config_data["allow_retweets"], "track": config_data["track"],
-                        "locations": config_data["locations"]}
+                        "locations": config_data["locations"], "null_delimit": config_data["null_delimit"]}
         except (FileNotFoundError, KeyError, TypeError):
             log.exception("Config file is invalid or has not been found.")
             raise

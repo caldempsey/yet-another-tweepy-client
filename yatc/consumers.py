@@ -48,17 +48,22 @@ class STDConsumer(BaseConsumer):
     The STDOut is responsible for listening to a Tweepy stream and printing Tweet output to standard output.
     """
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """
         Initialises the consumer, inherits from Tweepy Stream Listener.
         """
         # To prevent encoding errors (charmap codec errors, etc) in the stdout stream
         super().__init__()
+        # Assign relevant configuration.
+        self.null_delimit = kwargs.get("null_delimit", False)
 
     def on_data(self, data):
         """
         Override from the Tweepy on_data documentation. Prints JSON responses to stdout as they arrive.
         """
-        print(data)
+        if self.null_delimit:
+            print(data + "\x00")
+        else:
+            print(data)
         # Returning True (or returning a truthy value, that is not false) continues the stream.
         return True

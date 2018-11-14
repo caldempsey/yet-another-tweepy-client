@@ -1,5 +1,6 @@
 {
   "allow_retweets": false,
   "locations": [],
-  "track": ["\"weather\" :)"]
+  "track": ["\"weather\" :("],
+  "null_delimit": true
 }

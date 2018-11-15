@@ -19,5 +19,5 @@ else:
     auth.set_access_token(secrets["access_token"], secrets["access_secret"])
     # Get an STDConsumer object which we will use to delimit JSON responses, and pass that to a Tweepy Stream object.
     # Use Twitters sentiment analysis engine to determine the results.
-    Stream(auth, STDConsumer(null_delimit=True)).filter(track=["\"weather\" :("])
+    Stream(auth, STDConsumer(null_delimit=True)).filter(track=["\"weather\" :)"])
 sys.exit(1)

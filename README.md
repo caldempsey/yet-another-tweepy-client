@@ -36,3 +36,8 @@ Creating Scripts
 You can also use all the useful abstractions to help create scripts! 
 
 Settings.py provides helper functions to help take care of authentication for your users, while the YATC assembly of consumers will provide all the extra implementation details and documentation you need to get going quickly! Feel free to browse the example `weather_sentiment` scripts provided.
+
+ToDo
+---
+
+Write unit tests for scripts (though they have been black box tested).

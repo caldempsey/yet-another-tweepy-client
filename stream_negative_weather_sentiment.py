@@ -30,8 +30,9 @@ class SentimentConsumer(StreamListener):
         # Load JSON into keys to extract values
         data = json.loads(data)
         # Dump data output with expected vars.
-        out = {"id": data["id"], "text": data["text"], "positive_sentiment": False}
-        print(json.dumps(out))
+        if not data["retweeted"]:
+            print("\x00"+json.dumps({"id": data["id"], "text": data["text"], "positive_sentiment": True}))
+        return True
 
     def on_error(self, status):
         """

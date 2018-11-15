@@ -30,9 +30,10 @@ class SentimentConsumer(StreamListener):
         """
         # Load JSON into keys to extract values
         data = json.loads(data)
-        # Dump data output with expected vars.
-        out = {"id": data["id"], "text": data["text"], "positive_sentiment": True}
-        print(json.dumps(out))
+        # Dump data output with expected vars if not a retweet with a delimiter.
+        if not data["retweeted"]:
+            print("\x00"+json.dumps({"id": data["id"], "text": data["text"], "positive_sentiment": True}))
+        return True
 
     def on_error(self, status):
         """
@@ -55,5 +56,5 @@ else:
     auth.set_access_token(secrets["access_token"], secrets["access_secret"])
     # Get an STDConsumer object which we will use to delimit JSON responses, and pass that to a Tweepy Stream object.
     # Use Twitters sentiment analysis engine to determine the results.
-    Stream(auth, STDConsumer(null_delimit=True)).filter(track=["\"weather\" :)"])
+    Stream(auth, SentimentConsumer(null_delimit=True)).filter(track=["\"weather\" :)"])
 sys.exit(1)

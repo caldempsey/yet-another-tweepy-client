@@ -3,12 +3,12 @@ import click
 from yatc import settings
 from yatc.client import StreamingClient
 
-STREAMING_HELP = """An application which implements a variety of consumers to return Twitter data."""
+HELP = """An application which implements a variety of consumers to return Twitter data."""
 KEYS_HELP = """Validates whether configuration contains expected keys."""
 CONSUME_HELP = """Specify a consumer to begin ingesting data."""
 
 
-@click.group(help=STREAMING_HELP)
+@click.group(help=HELP)
 @click.pass_context
 def cli(ctx):
     ctx.obj = StreamingClient()

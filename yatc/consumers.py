@@ -46,6 +46,8 @@ class BaseConsumer(StreamListener):
 class STDConsumer(BaseConsumer):
     """
     The STDOut is responsible for listening to a Tweepy stream and printing Tweet output to standard output.
+
+    Options: Supports null byte delimitation.
     """
 
     def __init__(self, **kwargs):
@@ -60,6 +62,8 @@ class STDConsumer(BaseConsumer):
     def on_data(self, data):
         """
         Override from the Tweepy on_data documentation. Prints JSON responses to stdout as they arrive.
+
+        Options: Supports null byte delimitation.
         """
         if self.null_delimit:
             print(data + "\x00")

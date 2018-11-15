@@ -32,7 +32,8 @@ class SentimentConsumer(StreamListener):
         # Dump data output with expected vars, we are interested in locations we do know about, and we are not
         # interested in retweeted data.
         if not (data["retweeted"]) and not (data["coordinates"] is None):
-            print("\x00" + json.dumps({"id": data["id"], "text": data["text"], "positive_sentiment": True}))
+            print("\x00" + json.dumps(
+                {"id": data["id"], "text": data["text"], "sentiment": "negative", "coordinates": data["coordinates"]}))
         return True
 
     def on_error(self, status):

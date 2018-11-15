@@ -6,12 +6,11 @@ import sys
 from tweepy import Stream, OAuthHandler, StreamListener
 
 from yatc import settings
-from yatc.consumers import STDConsumer
 from yatc.settings import validate_json_config
 
 
 # Override to extract only meaningful metadata
-class SentimentConsumer(StreamListener):
+class ExampleDelimitedStream(StreamListener):
     """
     A TweetConsumer is responsible for listening to a Tweepy stream and ingesting its data.
     The Base Consumer is responsible only for returning data (tweets) ingested and can be hooked onto.
@@ -30,9 +29,9 @@ class SentimentConsumer(StreamListener):
         """
         # Load JSON into keys to extract values
         data = json.loads(data)
-        # Dump data output with expected vars if not a retweet with a delimiter.
+        # Dump data output with expected vars.
         if not data["retweeted"]:
-            print("\x00"+json.dumps({"id": data["id"], "text": data["text"], "positive_sentiment": True}))
+            print("\x00"+json.dumps({"id": data["id"], "text": data["text"]}))
         return True
 
     def on_error(self, status):
@@ -56,5 +55,5 @@ else:
     auth.set_access_token(secrets["access_token"], secrets["access_secret"])
     # Get an STDConsumer object which we will use to delimit JSON responses, and pass that to a Tweepy Stream object.
     # Use Twitters sentiment analysis engine to determine the results.
-    Stream(auth, SentimentConsumer()).filter(track=["\"weather\" :)"])
+    Stream(auth, ExampleDelimitedStream()).filter(track=["data"])
 sys.exit(1)

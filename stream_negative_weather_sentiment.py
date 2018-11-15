@@ -16,7 +16,7 @@ class SentimentConsumer(StreamListener):
     The Base Consumer is responsible only for returning data (tweets) ingested and can be hooked onto.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self):
         """
         Initialises the consumer, inherits from Tweepy Stream Listener. Achieves nothing more than returns data directly
         to processes hooked onto the function.
@@ -55,5 +55,5 @@ else:
     auth.set_access_token(secrets["access_token"], secrets["access_secret"])
     # Get an STDConsumer object which we will use to delimit JSON responses, and pass that to a Tweepy Stream object.
     # Use Twitters sentiment analysis engine to determine the results.
-    Stream(auth, SentimentConsumer(null_delimit=True)).filter(track=["\"weather\" :("])
+    Stream(auth, SentimentConsumer()).filter(track=["\"weather\" :("])
 sys.exit(1)
